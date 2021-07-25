@@ -70,6 +70,9 @@ Contributing
 Contributions are very welcome.
 To learn more, see the `Contributor Guide`_.
 
+Developer Resources
+-------------------
+#. Emojis https://emojiterra.com/categories/
 
 License
 -------

@@ -26,5 +26,4 @@ class ChecksecScanner(object):
             folder (str): Target folder to scan
             ofolder (str): Output folder to store the results & plots
         """
-        console.print("[bold green] :mag: Scanning")
-        console.log("[bold green] Scanning")
+        console.print(f"[bold green] :mag: Scanning folder: [bold]{folder}")
