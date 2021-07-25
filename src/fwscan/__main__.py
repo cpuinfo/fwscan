@@ -2,10 +2,13 @@
 import fire
 import logging
 
-from fwscan.scanners import checksec
+from fwscan.utils.console import console
+
 from fwscan.scanners.checksec.checksecscanner import ChecksecScanner
 from fwscan.scanners.radare.elfscanner import RadareELFScanner
 
+
+# Logging setup
 logging.basicConfig(
     level=logging.INFO,
     filename="/tmp/fwscan.log",

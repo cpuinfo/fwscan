@@ -1,6 +1,7 @@
 import logging
 import rich
 import logging
+from fwscan.utils.console import console
 
 log = logging.getLogger(__name__)
 
@@ -27,3 +28,5 @@ class ChecksecScanner(object):
             folder (str): Target folder to scan
             ofolder (str): Output folder to store the results & plots
         """
+        console.print("[bold green] Scanning")
+        console.log("[bold green] Scanning")
