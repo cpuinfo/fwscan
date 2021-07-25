@@ -1,11 +1,25 @@
 """Command-line interface."""
-import click
+import fire
+import logging
+
+from fwscan.scanners import checksec
+from fwscan.scanners.checksec.checksecscanner import ChecksecScanner
+from fwscan.scanners.radare.elfscanner import RadareELFScanner
+
+logging.basicConfig(
+    level=logging.INFO,
+    filename="/tmp/fwscan.log",
+    format="%(asctime)s %(levelname)s:%(message)s",
+)
 
 
-@click.command()
-@click.version_option()
 def main() -> None:
     """fwscan."""
+    checksec_scanner = ChecksecScanner()
+    radare_elf_scanner = RadareELFScanner()
+
+    # Register commands
+    fire.Fire({"radare": radare_elf_scanner, "checksec": checksec_scanner})
 
 
 if __name__ == "__main__":
