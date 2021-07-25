@@ -22,8 +22,13 @@ class ChecksecScanner(object):
         and stores result in output file. Generates plots for each protection
         features.
 
-        Args:
-            folder (str): Target folder to scan
-            ofolder (str): Output folder to store the results & plots
+        Parameters
+        ----------
+        folder : string
+            Target folder to scan
+        ofolder : string
+            Output folder to store the results & plots
         """
-        console.print(f"[bold green] :mag: Scanning folder: [bold]{folder}")
+        console.print(
+            f"[bold green] :mag: Scanning folder: [bold magenta]{folder}[/bold magenta]"
+        )
