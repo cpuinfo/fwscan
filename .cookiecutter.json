@@ -1,0 +1,12 @@
+{
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "CPU Info",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "cpuinfo10@gmail.com",
+  "friendly_name": "fwscan",
+  "github_user": "cpuinfo",
+  "license": "MIT",
+  "package_name": "fwscan",
+  "project_name": "fwscan",
+  "version": "0.0.1"
+}
