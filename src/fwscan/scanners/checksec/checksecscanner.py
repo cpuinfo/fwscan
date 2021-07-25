@@ -6,7 +6,7 @@ log = logging.getLogger(__name__)
 
 class ChecksecScanner(object):
     """Scanner for extracting, processing and visualizing
-    protections in binary
+    protections in binaries
 
     Examples usages:
     fwscan checksec --help
@@ -15,6 +15,19 @@ class ChecksecScanner(object):
     Scan folder /usr/bin and store results in folder output
     fwscan checksec scan /usr/bin output
     """
+
+    def __init__(self, verbose=False):
+        # TODO Fix this verbose optional option.
+        """
+        Parameters
+        ----------
+        verbose : boolean, optional
+            Enable verbose logging
+        """
+        self.verbose = verbose
+        if verbose:
+            log.setLevel(logging.DEBUG)
+        log.debug("---------")
 
     def scan(self, folder, ofolder):
         """
