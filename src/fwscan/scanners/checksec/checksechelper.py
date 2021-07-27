@@ -98,6 +98,10 @@ class CheckSecHelper(FileSystemScanner):
                     pad_inches=0.5,
                 )
 
+        for key in df.keys():
+            sns.scatterplot(data=df, x=key, y=df.keys()[-1])
+            plt.show()
+
         os.chdir(self.ofolder)
         console.print("[green bold]All plots generated in folder: " + plots_path)
 
