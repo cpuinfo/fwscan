@@ -68,7 +68,8 @@ class CheckSecHelper(FileSystemScanner):
             "RELRO,CANARY,NX,PIE,RPATH,RUNPATH,Symbols,FORTIFY,Fortified,Fortifiable,FILE"
         )
         self.fd.write("\n")
-        self.scan_for_elfs(self.checksec_dump)
+        with console.status(f"Scanning files ...", spinner="arrow3"):
+            self.scan_for_elfs(self.checksec_dump)
         self.fd.close()
 
     def generate_plots(self):
@@ -80,8 +81,8 @@ class CheckSecHelper(FileSystemScanner):
         console.print(df.head(5))
 
         console.print("[bold green]Generating interesting plots for you!!!")
-        for key in df.keys():
-            with console.status(f"Generating plots ...", spinner="arrow3"):
+        with console.status(f"Generating plots ...", spinner="arrow3"):
+            for key in df.keys():
                 console.print(key)
                 figure = df[key].value_counts().plot(kind="bar").get_figure()
                 figure.savefig(
@@ -90,17 +91,35 @@ class CheckSecHelper(FileSystemScanner):
                     dpi=600,
                     pad_inches=0.5,
                 )
-                sns.countplot(x=key, data=df).get_figure()
+                figure.clear()
+                figure = sns.countplot(x=key, data=df).get_figure()
                 figure.savefig(
                     plots_path + "/sns_" + key + ".svg",
                     format="svg",
                     dpi=600,
                     pad_inches=0.5,
                 )
+                figure.clear()
 
-        for key in df.keys():
-            sns.scatterplot(data=df, x=key, y=df.keys()[-1])
-            plt.show()
+        with console.status(f"Generating scatter plots ...", spinner="arrow3"):
+            for key in df.keys():
+                figure.clear()
+                figure = sns.scatterplot(data=df, x=key, y=df.keys()[-1]).get_figure()
+                figure.savefig(
+                    plots_path + "/scat_" + key + ".svg",
+                    format="svg",
+                    dpi=600,
+                    pad_inches=0.5,
+                )
+
+        figure.clear()
+        figure = sns.pairplot(df)
+        figure.savefig(
+            plots_path + "/pairplot.svg",
+            format="svg",
+            dpi=600,
+            pad_inches=0.5,
+        )
 
         os.chdir(self.ofolder)
         console.print("[green bold]All plots generated in folder: " + plots_path)
