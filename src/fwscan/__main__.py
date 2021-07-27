@@ -22,7 +22,7 @@ def main() -> None:
     radare_elf_scanner = RadareELFScanner()
 
     # Register commands
-    fire.Fire({"radare": radare_elf_scanner, "checksec": checksec_scanner})
+    fire.Fire({"radare": RadareELFScanner, "checksec": ChecksecScanner})
 
 
 if __name__ == "__main__":
