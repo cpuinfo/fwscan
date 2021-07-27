@@ -14,11 +14,15 @@ class ChecksecScanner(object):
         pip install checksec
 
     Examples usages:
-    fwscan checksec --help
-    fwscan checksec scan --help
-
     Scan folder /usr/bin and store results in folder output
-    fwscan checksec scan /usr/bin output
+        fwscan checksec scan /usr/bin output
+
+    Scan with plots
+        fwscan checksec scan /usr/bin output --plot
+
+    For more help
+        fwscan checksec --help
+        fwscan checksec scan --help
     """
 
     def __init__(self, verbose=False, plot=False):
@@ -27,6 +31,9 @@ class ChecksecScanner(object):
         ----------
         verbose : boolean, optional
             Enable verbose logging
+
+        plot : boolean, optional
+            Enable generation of plots
         """
         self.verbose = verbose
         self.plot = plot
@@ -45,10 +52,9 @@ class ChecksecScanner(object):
             Target (input) folder to scan
         ofolder : string
             Output folder to store the results & plots
-        plot : boolean
-            Enable generation of plots
         """
         console.print(
             f"[bold green] :mag: Scanning folder: [bold magenta]{ifolder}[/bold magenta]"
         )
         css = CheckSecHelper(ifolder, ofolder, fformat="csv", plot=self.plot)
+        css.fire_command()

@@ -28,9 +28,10 @@ class CheckSecHelper(FileSystemScanner):
         self.fformat = fformat
         self.plot = plot
 
+    def fire_command(self):
         self.setup_output_folder()
         self.checksec_on_elfs()
-        if plot:
+        if self.plot:
             self.generate_plots()
 
     def checksec_dump(self, fpath, node):
