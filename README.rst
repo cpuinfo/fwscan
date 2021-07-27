@@ -73,6 +73,7 @@ To learn more, see the `Contributor Guide`_.
 Developer Resources
 -------------------
 #. Emojis https://emojiterra.com/categories/
+#. Spinners https://github.com/willmcgugan/rich/blob/master/rich/_spinners.py
 
 License
 -------

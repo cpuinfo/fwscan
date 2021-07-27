@@ -1,7 +1,7 @@
 from scanfs.fsscanner import FileSystemScanner
 import os
 import subprocess
-import logging
+import seaborn as sns
 import subprocess
 import errno
 import shutil
@@ -81,7 +81,7 @@ class CheckSecHelper(FileSystemScanner):
 
         console.print("[bold green]Generating interesting plots for you!!!")
         for key in df.keys():
-            with console.status(f"Generating plots ...", spinner="monkey"):
+            with console.status(f"Generating plots ...", spinner="arrow3"):
                 console.print(key)
                 figure = df[key].value_counts().plot(kind="bar").get_figure()
                 figure.savefig(
@@ -90,9 +90,16 @@ class CheckSecHelper(FileSystemScanner):
                     dpi=600,
                     pad_inches=0.5,
                 )
+                sns.countplot(x=key, data=df).get_figure()
+                figure.savefig(
+                    plots_path + "/sns_" + key + ".svg",
+                    format="svg",
+                    dpi=600,
+                    pad_inches=0.5,
+                )
 
         os.chdir(self.ofolder)
-        console.print("All plots generated in folder: " + plots_path)
+        console.print("[green bold]All plots generated in folder: " + plots_path)
 
     def setup_output_folder(self):
         try:
