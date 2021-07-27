@@ -7,6 +7,8 @@ import errno
 import shutil
 import matplotlib.pyplot as plt
 import pandas as pd
+from pycaret.anomaly import *
+
 
 from fwscan.utils.console import console
 from scanfs.fsscanner import FileSystemScanner
@@ -72,6 +74,16 @@ class CheckSecHelper(FileSystemScanner):
             self.scan_for_elfs(self.checksec_dump)
         self.fd.close()
 
+    def find_anomaly(self, df):
+        # intialize the setup
+        checksec_ano = setup(df)
+        # create a model
+        knn = create_model("knn")
+        knn_df = assign_model(knn)
+
+        # plot a model
+        plot_model(knn)
+
     def generate_plots(self):
         plots_path = self.ofolder + "/plots"
         os.makedirs(plots_path, exist_ok=True)
@@ -121,7 +133,8 @@ class CheckSecHelper(FileSystemScanner):
             pad_inches=0.5,
         )
 
-        os.chdir(self.ofolder)
+        self.find_anomaly(df)
+
         console.print("[green bold]All plots generated in folder: " + plots_path)
 
     def setup_output_folder(self):
