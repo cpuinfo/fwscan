@@ -81,11 +81,15 @@ class CheckSecHelper(FileSystemScanner):
 
         console.print("[bold green]Generating interesting plots for you!!!")
         for key in df.keys():
-            console.print(key)
-            figure = df[key].value_counts().plot(kind="bar").get_figure()
-            figure.savefig(
-                plots_path + "/" + key + ".svg", format="svg", dpi=600, pad_inches=0.5
-            )
+            with console.status(f"Generating plots ...", spinner="monkey"):
+                console.print(key)
+                figure = df[key].value_counts().plot(kind="bar").get_figure()
+                figure.savefig(
+                    plots_path + "/" + key + ".svg",
+                    format="svg",
+                    dpi=600,
+                    pad_inches=0.5,
+                )
 
         os.chdir(self.ofolder)
         console.print("All plots generated in folder: " + plots_path)
