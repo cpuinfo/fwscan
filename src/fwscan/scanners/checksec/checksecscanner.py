@@ -14,13 +14,13 @@ class ChecksecScanner(object):
         pip install checksec
 
     Examples usages:
-    Scan folder /usr/bin and store results in folder output
+    Scan folder /usr/bin and store results in folder output:
         fwscan checksec scan /usr/bin output
 
-    Scan with plots
+    Scan with plots:
         fwscan checksec scan /usr/bin output --plot
 
-    For more help
+    For more help:
         fwscan checksec --help
         fwscan checksec scan --help
     """
@@ -43,8 +43,8 @@ class ChecksecScanner(object):
     def scan(self, ifolder, ofolder):
         """
         Scan for ELF binaries in the folder, extracts protection features
-        and stores result in output file. Generates plots for each protection
-        features.
+        and stores result in output file. Optionally generates plots for
+        each protection features.
 
         Parameters
         ----------

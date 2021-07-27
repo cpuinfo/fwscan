@@ -29,10 +29,10 @@ class CheckSecHelper(FileSystemScanner):
         self.plot = plot
 
     def fire_command(self):
-        self.setup_output_folder()
-        self.checksec_on_elfs()
-        if self.plot:
-            self.generate_plots()
+        if self.setup_output_folder():
+            self.checksec_on_elfs()
+            if self.plot:
+                self.generate_plots()
 
     def checksec_dump(self, fpath, node):
         """
@@ -96,18 +96,14 @@ class CheckSecHelper(FileSystemScanner):
             console.print("[green]Created output folder: " + self.ofolder)
         except OSError as e:
             if e.errno == errno.EEXIST:
-                console.print(
-                    "[bold red]Output folder exists. Do you want to delete and recreate? (y/N): ",
-                    justify="center",
+                choice = console.input(
+                    "[bold red]Output folder exists. Do you want to delete and recreate? (y/N): "
                 )
-                choice = input()
                 if choice == "Y" or choice == "y":
+                    console.print(f"[red bold]Deleting existing folder: {self.ofolder}")
                     shutil.rmtree(self.ofolder, ignore_errors=True)
                     os.makedirs(self.ofolder, exist_ok=True)
-                    console.print(
-                        "[green]Created output folder: " + self.ofolder,
-                        justify="center",
-                    )
+                    console.print(f"[green]Created fresh output folder: {self.ofolder}")
                     return True
                 else:
                     console.print("[green]Keeping folder safe")
