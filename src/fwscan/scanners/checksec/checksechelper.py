@@ -76,13 +76,17 @@ class CheckSecHelper(FileSystemScanner):
 
     def find_anomaly(self, df):
         # intialize the setup
-        checksec_ano = setup(df)
+        checksec_ano = setup(
+            df,
+            session_id=5555,
+        )
         # create a model
         knn = create_model("knn")
         knn_df = assign_model(knn)
 
         # plot a model
-        plot_model(knn)
+        plot_model(knn, feature="FILE")
+        plot_model(knn, plot="umap", feature="FILE")
 
     def generate_plots(self):
         plots_path = self.ofolder + "/plots"
