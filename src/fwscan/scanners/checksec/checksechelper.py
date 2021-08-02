@@ -76,10 +76,7 @@ class CheckSecHelper(FileSystemScanner):
 
     def find_anomaly(self, df):
         # intialize the setup
-        checksec_ano = setup(
-            df,
-            session_id=5555,
-        )
+        checksec_ano = setup(df, session_id=5555, normalize=True, verbose=False)
         # create a model
         knn = create_model("knn")
         knn_df = assign_model(knn)
@@ -87,6 +84,14 @@ class CheckSecHelper(FileSystemScanner):
         # plot a model
         plot_model(knn, feature="FILE")
         plot_model(knn, plot="umap", feature="FILE")
+
+        # create a model
+        iforest = create_model("iforest")
+        iforest_df = assign_model(iforest)
+
+        # plot a model
+        plot_model(iforest, feature="FILE")
+        plot_model(iforest, plot="umap", feature="FILE")
 
     def generate_plots(self):
         plots_path = self.ofolder + "/plots"
@@ -97,7 +102,7 @@ class CheckSecHelper(FileSystemScanner):
         console.print(df.head(5))
 
         console.print("[bold green]Generating interesting plots for you!!!")
-        with console.status(f"Generating plots ...", spinner="arrow3"):
+        with console.status(f"[magenta]Generating plots ...", spinner="arrow3"):
             for key in df.keys():
                 console.print(key)
                 figure = df[key].value_counts().plot(kind="bar").get_figure()
@@ -117,7 +122,7 @@ class CheckSecHelper(FileSystemScanner):
                 )
                 figure.clear()
 
-        with console.status(f"Generating scatter plots ...", spinner="arrow3"):
+        with console.status(f"[magenta]Generating scatter plots ...", spinner="arrow3"):
             for key in df.keys():
                 figure.clear()
                 figure = sns.scatterplot(data=df, x=key, y=df.keys()[-1]).get_figure()
@@ -137,7 +142,8 @@ class CheckSecHelper(FileSystemScanner):
             pad_inches=0.5,
         )
 
-        self.find_anomaly(df)
+        with console.status(f"[magenta]Finding anomaly ...", spinner="arrow3"):
+            self.find_anomaly(df)
 
         console.print("[green bold]All plots generated in folder: " + plots_path)
 

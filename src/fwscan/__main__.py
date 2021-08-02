@@ -1,11 +1,12 @@
 """Command-line interface."""
 import fire
 import logging
+from fwscan.scanners.radare.r2stringscanner import RadareStringScanner
+from fwscan.scanners.radare.stringscanner import RadareELFScanner
 
 from fwscan.utils.console import console
 
 from fwscan.scanners.checksec.checksecscanner import ChecksecScanner
-from fwscan.scanners.radare.elfscanner import RadareELFScanner
 
 
 # Logging setup
@@ -22,7 +23,7 @@ def main() -> None:
     radare_elf_scanner = RadareELFScanner()
 
     # Register commands
-    fire.Fire({"radare": RadareELFScanner, "checksec": ChecksecScanner})
+    fire.Fire({"r2": RadareELFScanner, "checksec": ChecksecScanner})
 
 
 if __name__ == "__main__":

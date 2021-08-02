@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fwscan"
-version = "0.0.4"
+version = "0.0.5"
 description = "fwscan"
 authors = ["CPU Info <cpuinfo10@gmail.com>"]
 license = "MIT"
