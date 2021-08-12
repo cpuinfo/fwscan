@@ -39,8 +39,10 @@ fwscan
 Features
 --------
 
-* TODO
-
+* Scan using radare
+   * Scan firmware binaries for protections including RELRO, Stack Canary, NX, FORTIFY, Fortified, and Fortifiable
+   * Generate CSV file for protections of all binaries
+      * RELRO,CANARY,NX,PIE,RPATH,RUNPATH,Symbols,FORTIFY,Fortified,Fortifiable,FILE
 
 Requirements
 ------------
